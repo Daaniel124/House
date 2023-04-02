@@ -1,3 +1,5 @@
+using House.ApplicationServices.Services;
+using House.Core.ServiceInterface;
 using House.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +10,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<HouseDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IHouseServices, HouseServices>();
 
 var app = builder.Build();
 
