@@ -42,7 +42,7 @@ namespace House.Controllers
             return View("Edit");
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Add(HouseViewModel vm)
         {
             var dto = new HouseDto()
@@ -58,7 +58,7 @@ namespace House.Controllers
             };
 
             var result = await _houseServices.Add(dto);
-            if (result == null)
+            if (result is null)
             {
                 return RedirectToAction(nameof(Index));
             }
