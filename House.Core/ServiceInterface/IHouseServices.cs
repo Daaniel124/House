@@ -11,5 +11,7 @@ namespace House.Core.ServiceInterface
     public interface IHouseServices : IApplicationServices
     {
         Task<HouseDomain> Add(HouseDto dto);
+        Task<HouseDomain> GetAsync(Guid id);
+        Task<HouseDomain> Update(HouseDto dto);
     }
 }

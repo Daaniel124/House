@@ -26,6 +26,7 @@ namespace House.Controllers
                 .OrderByDescending(y => y.CreatedAt)
                 .Select(x => new HouseListViewModel
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Address = x.Address,
                     Square = x.Square,
@@ -37,9 +38,9 @@ namespace House.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            HouseViewModel spaceship = new HouseViewModel();
+            HouseEditViewModel house = new HouseEditViewModel();
 
-            return View("Edit");
+            return View("Edit", house);
         }
 
         [HttpPost]
@@ -59,6 +60,55 @@ namespace House.Controllers
 
             var result = await _houseServices.Add(dto);
             if (result is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index), vm);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var house = await _houseServices.GetAsync(id);
+
+            if (house == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new HouseEditViewModel()
+            {
+                Id = house.Id,
+                Name = house.Name,
+                Address = house.Address,
+                Square = house.Square,
+                NumberOfRooms = house.NumberOfRooms,
+                CreatedAt = house.CreatedAt,
+                ModifiedAt = house.ModifiedAt,
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(HouseEditViewModel vm)
+        {
+            var dto = new HouseDto()
+            {
+                Id = vm.Id,
+                Name = vm.Name,
+                Address = vm.Address,
+                Square = vm.Square,
+                NumberOfRooms = vm.NumberOfRooms,
+                CreatedAt = vm.CreatedAt,
+                ModifiedAt = vm.ModifiedAt,
+            };
+
+            var result = await _houseServices.Update(dto);
+
+            if (result == null)
             {
                 return RedirectToAction(nameof(Index));
             }
