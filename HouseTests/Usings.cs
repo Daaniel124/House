@@ -1,0 +1,14 @@
+global using Xunit;
+global using Microsoft.Extensions.DependencyInjection;
+global using House.ApplicationServices.Services;
+global using House.Core.ServiceInterface;
+global using House.Data;
+global using House.Core.Domain;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
+global using House.Core.Dto;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Hosting;
+global using System.Collections;
+global using House.HouseTests.Macros;
+global using House.HouseTests;
