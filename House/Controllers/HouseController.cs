@@ -115,5 +115,42 @@ namespace House.Controllers
 
             return RedirectToAction(nameof(Index), vm);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var house = await _houseServices.GetAsync(id);
+
+            if (house == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new HouseViewModel()
+            {
+                Id = house.Id,
+                Name = house.Name,
+                Address = house.Address,
+                Square = house.Square,
+                NumberOfRooms = house.NumberOfRooms,
+                CreatedAt = house.CreatedAt,
+                ModifiedAt = house.ModifiedAt,
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
+        {
+            var product = await _houseServices.Delete(id);
+
+            if (product == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

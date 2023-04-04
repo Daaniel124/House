@@ -63,5 +63,16 @@ namespace House.ApplicationServices.Services
             await _context.SaveChangesAsync();
             return house;
         }
+
+        public async Task<HouseDomain> Delete(Guid id)
+        {
+            var house = await _context.House
+              .FirstOrDefaultAsync(x => x.Id == id);
+
+            _context.House.Remove(house);
+            await _context.SaveChangesAsync();
+
+            return house;
+        }
     }
 }

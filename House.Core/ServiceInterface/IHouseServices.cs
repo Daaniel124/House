@@ -13,5 +13,6 @@ namespace House.Core.ServiceInterface
         Task<HouseDomain> Add(HouseDto dto);
         Task<HouseDomain> GetAsync(Guid id);
         Task<HouseDomain> Update(HouseDto dto);
+        Task<HouseDomain> Delete(Guid id);
     }
 }
